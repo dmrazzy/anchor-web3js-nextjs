@@ -134,14 +134,23 @@ cd program
 pnpm install
 anchor build
 anchor keys sync
+anchor build
+anchor deploy
 ```
+
+If `Operation timed out` happens during `anchor deploy`, you can also use other RPC endpoint by passing `--provider.cluster <your-custom-rpc>` or you can override `provider.cluster` in `Anchor.toml`
 
 3. Install frontend dependencies:
 
 ```bash
 cd frontend
 pnpm install
+cp ../program/idl/counter.json frontend/anchor-idl/idl.json
+cp ../program/target/types/counter.ts frontend/anchor-idl/idl.ts
+pnpm dev
 ```
+
+Action `cp` is important, so that you won't access the program others may have deployed. You'll notice that if your initial counter value is not null or zero.
 
 ### Development
 
